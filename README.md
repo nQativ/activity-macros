@@ -1,2 +1,2 @@
-# activity-macros
-Examples of Activity Explorer macros
+# Activity HD macro examples
+Example macro scripts
