@@ -1,2 +1,2 @@
 # Activity HD macro examples
-Example macro scripts
+Example macro VBA scripts
