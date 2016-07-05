@@ -6,6 +6,10 @@
 ' Record Type:    Authorized Users (Activity Company)
 ' Enable Results: unchecked
 '
+' History
+' 2016-07-05        Created
+'
+'
 
 const cSharedSecret = "Shar3dS3cr3t"
 
