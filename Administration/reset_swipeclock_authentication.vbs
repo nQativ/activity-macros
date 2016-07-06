@@ -10,7 +10,7 @@
 const cSharedSecret = "Shar3dS3cr3t"
 
 RecordLoop.Data.Edit
-RecordLoop.Data.Fields("WebPasswordText").Value = LCase(RecordLoop.Data.Fields("WebUsername").Value) & ":" & "!" & cSharedSecret
+RecordLoop.Data.Fields("WebPasswordText").Value = LCase(RecordLoop.Data.Fields("WebUsername").Value) & ":" & cSharedSecret
 RecordLoop.Data.Fields("EnforcePasswordComplexity").Value = False
 RecordLoop.Data.Fields("EnforcePasswordExpiration").Value = False
 RecordLoop.Data.Save
