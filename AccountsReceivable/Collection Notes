@@ -1,0 +1,13 @@
+' For each Customer being processed, Create a new Note
+set ar_note = Company.AccountsReceivable.ARNote
+stop
+ar_note.New
+ar_note.Fields("ARNoteType").Value = "Collections"
+ar_note.Fields("NoteDate").Value = Now
+ar_note.Fields("References/Customers").Items.Add(RecordLoop.Data.Fields("Code").Value)
+ar_note.Fields("Description").Value = "Collection Letter"
+ar_note.Fields("NoteText").Value = "A collection letter was mailed to the customer today."
+ar_note.Save
+
+RecordLoop.Results.Add ar_note
+RecordLoop.AddMessage "Past Due Note Created for Customer: " & RecordLoop.Data.Fields("Name").Value
