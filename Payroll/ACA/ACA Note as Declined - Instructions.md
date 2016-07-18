@@ -1,8 +1,11 @@
 #ACA Note as Declined - Instructions
 
 Activity Macro:	**ACA Note as Declined**
+
 Description:	Add ACADeclined Note to ACA Record
+
 Macro Type:		Record Loop
+
 Record Type:	ACA Records (Payroll)
 
 For each ACA Record selected this macro does the following:
