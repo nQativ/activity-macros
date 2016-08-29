@@ -8,7 +8,7 @@
 ' Record Type:     Generic (based on Run From)
 ' Run From:        wherever you like - press F3 to see choices
 '                  Note: Can be run from multiple locations
-' Using:           na
+' Using:           blank
 '
 
 ' Why to use:
@@ -21,9 +21,13 @@
 ' - Run the macro
 ' - Observe the list of field names in the pop-up window
 
+RecordLoop.Data.Fields.ShowFields
 
 ' BEG 'Script' tab contents --------------------------------------------------------------
-RecordLoop.Data.Fields.ShowFields
+' See the 'Initialization' tab
+'
+' Don't put the RecordLoop statement here or it will pop the field-listing
+' window as many times as there are records in the Record Loop
 
 ' BEG 'Finalization' tab contents --------------------------------------------------------
 ' empty
