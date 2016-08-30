@@ -6,7 +6,8 @@
 ' Using:                    Declarations
 '
 ' Contents
-' DisplayErrMsg             Displays as much detail as possible about errors
+' subDisplayErrMsg             Displays as much detail as possible about errors
+' subMacroAddMsg               Constructs and adds a new message using MacroProcess
 '
 '-----------------------------------------------------------------------------------------
 
@@ -24,5 +25,19 @@ Sub subDisplayErrMsg(strMessage)
                "Description  : " & Err.Description
     Err.Clear
     MsgBox strError
+
+End Sub
+
+Sub subMacroAddMsg(strBegEnd, strSection)
+    ' Constructs and adds a new Macro message using MacroProcess.AddMessage
+
+    Select Case UCase(strBegEnd)
+        Case "BEG"
+            MacroProcess.AddMessage("Begin section " & Constants.ap & strSection & Constants.ap)
+        Case "END"
+            MacroProcess.AddMessage("End section " & Constants.ap & strSection & Constants.ap)
+        Case Else
+            MacroProcess.AddMessage("Current section is " & Constants.ap & strSection & Constants.ap)
+    End Select
 
 End Sub
