@@ -1,0 +1,77 @@
+'This Macro allows you to run a report based on Saved Answer
+'To implement this bot on customer site: 
+
+'Create New Macro - Type - RecordLoop
+'Run From Segment Items - Depts(GeneralLedger) 
+
+'-- Set Temporary File 
+
+Dim fso
+Set fso = CreateObject("Scripting.FileSystemObject")
+Dim File_dir
+Set objShell = CreateObject("WScript.Shell")
+desktopfolder = objShell.ExpandEnvironmentStrings("%USERPROFILE%\Desktop\Trial Balances")			'-- See "Trial Balance Report" to save to temporary file. This requires "Trial Balances" Folder to be on desktop.
+
+Set filesys = CreateObject("Scripting.FileSystemObject") 
+if filesys.FileExists(file_dir + "\" + file_name) then 
+  filesys.DeleteFile file_dir + "\" + file_name
+end if
+
+'- Run Trial Balance Report
+Set data = recordloop.data
+dept_data = data.Fields("Code").Value 
+set report = Company.GeneralLedger.Reports("Trial Balance Report")									'-- Change Reports as needed.
+
+'-- Export Values of Saved Answer																	
+'-- Open Report, Select Saved Answer, Tools>Export>Current Values. You'll need to change "" to '' (I used Ctrl H)
+
+'Special Notes: 
+'Use "<PeriodContains Expression= 'End of Last Period' />" to specify date expressions
+' The AuxiliarySegment2Item is Depts -- "<Item Table='Segments' Field='AuxiliarySegment2Item' Version='4' Operator='1'>" (The Operator "1" is "like" and 3 is "=")
+
+
+report.Answers( _ 						
+"<Answers>" & _
+	"'<DialogAnswers>" & _
+		"<Output>" & _
+			"<DesignEdit Value='{CE95E729-54D1-4D4D-A585-98472CA170A2}'/>" & _
+		"</Output>" & _
+		"<Options>" & _
+			"<CalendarPeriod>" & _
+				"<Calendar Value='Month'/>" & _
+				"<Year Value='2016'/>" & _
+				"<PeriodContains Expression= 'End of Last Period' />" & _
+			"</CalendarPeriod>" & _
+			"<ProvideDetailCheckBox Value='False'/>" & _
+			"<IncludeUnmergedCheckBox Value='False'/>" & _
+			"<NoActivityAccountsRadioGroup Value='EXCLUDEifZERO'/>" & _
+			"<GroupingTotalsCheckBox Value='True'/>" & _
+			"<ShowGroupTotalsOnlyCheckBox Value='False'/>" & _
+		"</Options>" & _
+		"<AssignedSortOptions Value='{7A90A243-F7D0-45D1-B355-915F48F39674}&#13;&#10;'/>" & _
+	"</DialogAnswers>" & _
+	"<SelectionAnswers>" & _
+		"<Selection>" & _
+			"<Item Table='Segments' Field='AuxiliarySegment2Item' Version='4' Operator='1'>" & _
+				"<Value1 Text='" & dept_data & "'/>" & _
+			"</Item>" & _
+		"</Selection>" & _
+	"</SelectionAnswers>" & _
+"</Answers>")
+
+file_name = "Trial Balance" & dept_data & ".pdf"
+
+'-- Export Data to File 
+report.Export( _
+  "<Export " + _
+    "Prompt='False' " + _
+    "FormatType='PortableDocFormat' " + _
+    "DestinationType='DiskFile' " + _
+    "DiskFileName='" + desktopfolder + "\" + file_name + "' " + _
+  "/>")
+
+RecordLoop.AddMessage file_name
+
+
+    Set oFolder = Nothing
+    Set oshell  = Nothing
