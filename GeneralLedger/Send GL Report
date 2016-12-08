@@ -39,7 +39,7 @@ report.Answers( _
 		"<Options>" & _
 			"<CalendarPeriod>" & _
 				"<Calendar Value='Month'/>" & _
-				"<Year Value='2016'/>" & _
+				"<PeriodContains Expression= 'End of Last Period' />" & _
 				"<PeriodContains Expression= 'End of Last Period' />" & _
 			"</CalendarPeriod>" & _
 			"<ProvideDetailCheckBox Value='False'/>" & _
