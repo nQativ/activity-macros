@@ -4,6 +4,28 @@
 'Create New Macro - Type - RecordLoop
 'Run From Segment Items - Depts(GeneralLedger) 
 
+'-- Initialization Tab 
+
+'--Prompt for Month 
+Month_Prompt = InputBox("Enter the month for the trial balance report", "Fiscal Year Month (July = 1)", Month_Value)
+
+If not IsObject(options) then
+Set options = CreateObject("Scripting.Dictionary")
+Month_Value = options.Item("MonthValue")
+End If 
+
+Month_Value = Month_Prompt
+
+'-- Prompt for Year
+Year_Prompt = InputBox("Enter the year for the trial balance report", "Fiscal Year(2017)", Year_Value)
+
+If not IsObject(options) then
+Set options = CreateObject("Scripting.Dictionary")
+Year_Value = options.Item("YearValue")
+End If 
+
+Year_Value = Year_Prompt
+
 '-- Set Temporary File 
 
 Dim fso
@@ -39,8 +61,8 @@ report.Answers( _
 		"<Options>" & _
 			"<CalendarPeriod>" & _
 				"<Calendar Value='Month'/>" & _
-				"<PeriodContains Expression= 'End of Last Period' />" & _
-				"<PeriodContains Expression= 'End of Last Period' />" & _
+				"<Year Value='" & Year_Value & "'/>" & _
+				"<Period Value='" & Month_Value & "'/>" & _
 			"</CalendarPeriod>" & _
 			"<ProvideDetailCheckBox Value='False'/>" & _
 			"<IncludeUnmergedCheckBox Value='False'/>" & _
